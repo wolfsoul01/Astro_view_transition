@@ -1,4 +1,8 @@
 ---
+import LaunchesCard from "./ui/LaunchesCard.astro";
+
+import {type Doc, type ApiSpaceXRes} from '../components/types/api.type'
+
 const res = await fetch("https://api.spacexdata.com/v5/launches/query", {
   method: "POST",
   headers: {
@@ -15,13 +19,18 @@ const res = await fetch("https://api.spacexdata.com/v5/launches/query", {
   }),
 });
 
-const data = await res.json();
-console.log(JSON.stringify(data) );
-
+const {docs:launches} = await res.json() as ApiSpaceXRes  ;
 ---
 
-<section class="mx-auto max-w-xl">
-  <div class="">
+<section class="mx-auto max-w-screen-lg">
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 place-content-center w-full">
+    {
+      launches.map(({flight_number,success,name,id,details,links})=><article>
+          <LaunchesCard flightNumber={flight_number} succes={success} name={name} id={id} details={details} img={links.patch.small}  />
+        </article>
+  
+      )
+    }
   </div>
 
 </section>

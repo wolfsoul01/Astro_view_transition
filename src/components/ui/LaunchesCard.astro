@@ -1,0 +1,42 @@
+---
+export interface Props {
+  id: string;
+  name: string;
+  img: string;
+  succes: boolean;
+  flightNumber: number;
+  details: string;
+}
+
+const { id, name, img, succes, flightNumber, details } = Astro.props;
+
+const launchStatus = succes ? "Despego" : "Exploto";
+---
+
+<div
+  class="bg-gray-700 px-4 py-2 rounded-md hover:scale-105 hover:bg-gray-500 transition-all duration-200"
+>
+  <a href="">
+    <picture class="flex justify-center rounded-md mb-5">
+      <img src={img} alt="" />
+    </picture>
+
+    <div class="text-white/90 flex flex-col gap-x-2 items-start">
+      <div
+        class:list={[
+          "p-2 rounded-lg  ",
+          {
+              "bg-green-500 text-green-900": succes,
+              ' bg-red-500 text-red-900':!succes,
+          },
+        ]}
+        class=""
+      >
+        {launchStatus}
+      </div>
+      <h2 class="text-2xl font-bold">{name}</h2>
+      <span class="font-semibold opacity-80">Flight:#{flightNumber}</span>
+      <span class="opacity-50">{id}</span>
+    </div>
+  </a>
+</div>

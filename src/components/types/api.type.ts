@@ -1,4 +1,4 @@
-export type Welcome = {
+export type ApiSpaceXRes = {
     docs:          Doc[];
     totalDocs:     number;
     offset:        number;
