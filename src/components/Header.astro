@@ -2,15 +2,15 @@
 import HeaderLink from "./ui/HeaderLink.astro";
 ---
 
-<header class="py-8 px-4 mx-auto max-w-xl">
-  <div class="mx-auto text-center">
-    <h1 class="text-6xl text-white font-bold">SpaceX Lanzamientos 🚀</h1>
+<header class="py-8 px-4 mx-auto max-w-xl" transition:name="Principal" >
+  <div class="mx-auto text-center" transition:name="titulo">
+    <h1 class="text-5xl md:text-6xl text-white font-bold">SpaceX Lanzamientos 🚀</h1>
     <p class="text-xl text-white/60 p-2">
       Informacion de los ultimos 10 lanzamiento de SpaceX
     </p>
   </div>
 
-  <nav
+  <nav transition:name="nav"
     class="text-white flex flex-col justify-between w-full items-center md:flex-row"
   >
     <HeaderLink>
