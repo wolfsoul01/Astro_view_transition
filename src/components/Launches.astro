@@ -1,33 +1,8 @@
 ---
 import LaunchesCard from "./ui/LaunchesCard.astro";
+import {getLanchesApi} from './utils/spaceX.ts'
 
-import { type Doc, type ApiSpaceXRes } from "../components/types/api.type";
-
-let res
-try {
-  const ress = await fetch("https://api.spacexdata.com/v5/launches/query", {
-  method: "POST",
-  headers: {
-    "Content-Type": "aplication/json",
-  },
-  body: JSON.stringify({
-    query: {},
-    options: {
-      sort: {
-        date_unix: "asc",
-      },
-      limit: 10,
-    },
-  }),
-});
-res=ress
-  
-} catch (error) {
-  
-}
-
-
-const { docs: launches } = (await res.json()) as ApiSpaceXRes;
+const launches = await getLanchesApi()
 ---
 
 <section class="mx-auto max-w-screen-lg">
