@@ -16,7 +16,7 @@ const launchStatus = succes ? "Despego" : "Exploto";
 <div
   class="bg-gray-700 px-4 py-2 rounded-md hover:scale-105 hover:bg-gray-500 transition-all duration-200"
 >
-  <a href="">
+  <a href=`/${id}`>
     <picture class="flex justify-center rounded-md mb-5">
       <img src={img} alt="" />
     </picture>
@@ -26,8 +26,8 @@ const launchStatus = succes ? "Despego" : "Exploto";
         class:list={[
           "p-2 rounded-lg  ",
           {
-            "bg-green-500 text-green-900": succes,
-            " bg-red-500 text-red-900": !succes,
+            "bg-green-500 text-white/90": succes,
+            " bg-red-500 text-white/90": !succes,
           },
         ]}
         class=""

@@ -3,11 +3,11 @@ import HeaderLink from "./ui/HeaderLink.astro";
 ---
 
 <header
-  class="py-8 px-4 mx-auto max-w-lg flex flex-col justify-center items-center h-screen scale-125"
+  class="py-8  0  max-w-lg flex flex-col justify-center items-center min-h-screen scale-125 "
   transition:name="Principal"
 >
-  <div class="mx-auto text-center" transition:name="titulo">
-    <h1 class="text-5xl md:text-6xl text-white font-bold">
+  <div class=" text-center  " transition:name="titulo">
+    <h1 class="text-5xl md:text-6xl text-white font-bold ">
       SpaceX Lanzamientos 🚀
     </h1>
     <p class="text-xl text-white/60 p-2">
@@ -19,7 +19,7 @@ import HeaderLink from "./ui/HeaderLink.astro";
     transition:name="nav"
     class="text-white flex flex-col justify-center w-full items-center md:flex-row"
   >
-    <HeaderLink ref="/home">
+    <HeaderLink ref="/launch">
       <svg
         slot="before"
         width="24"
