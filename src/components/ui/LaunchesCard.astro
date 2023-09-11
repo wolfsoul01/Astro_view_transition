@@ -13,8 +13,8 @@ const { id, name, img, succes, flightNumber, details } = Astro.props;
 const launchStatus = succes ? "Despego" : "Exploto";
 ---
 
-<div
-  class="bg-gray-700 px-4 py-2 rounded-md hover:scale-105 hover:bg-gray-500 transition-all duration-200"
+<article
+  class="bg-gray-700 px-4 py-2 rounded-md hover:scale-105 hover:bg-gray-500 transition-all duration-200 select-none"
 >
   <a href=`/launches/${id}`>
     <picture class="flex justify-center rounded-md mb-5 " >
@@ -39,4 +39,4 @@ const launchStatus = succes ? "Despego" : "Exploto";
       <span class="opacity-50">{id}</span>
     </div>
   </a>
-</div>
+</article>
