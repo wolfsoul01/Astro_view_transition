@@ -1,6 +1,6 @@
 
 
-import { type ApiSpaceXRes } from "../types/api.type";
+import { type ApiSpaceXRes, type Doc,  } from '../types/api.type';
 
 
 
@@ -25,4 +25,12 @@ export async function getLanchesApi() {
   
   const { docs: launches } = (await res.json()) as ApiSpaceXRes;
   return launches;
+}
+
+
+export async function getLaunchId({id}:{id:string}) {
+
+  const res = await fetch(`https://api.spacexdata.com/v5/launches/${id}`)
+  const launch = await res.json() as Doc
+  return launch
 }

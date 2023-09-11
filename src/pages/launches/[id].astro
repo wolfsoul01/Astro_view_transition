@@ -1,0 +1,51 @@
+---
+import type { GetStaticPaths } from "astro";
+
+import { getLanchesApi, getLaunchId } from "../../components/utils/spaceX";
+import LayoutLaunch from "../../layouts/LayoutLaunch.astro";
+
+export const getStaticPaths = (async () => {
+  const launches = await getLanchesApi();
+  const rutas = launches.map((item) => {
+    return {
+      params: { id: item.id },
+    };
+  });
+
+  return rutas;
+}) satisfies GetStaticPaths;
+
+const { id } = Astro.params;
+
+const { name, flight_number, links, details,success ,date_unix} = await getLaunchId({ id });
+const ok = success?'Despego':'Exploto' 
+const data = new Date(date_unix)
+console.log(data);
+
+---
+
+<LayoutLaunch title="Info-Launch">
+  <main class="grid grid-cols-2 gap-x-10 max-w-2xl mx-auto bg-slate-800 p-5 rounded-md">
+    <div class="">
+      <picture class="pb-3 mb-4">
+        <img class="mb-5" src={links.patch.large} alt="" />
+      </picture>
+
+        <span class:list={[
+            'p-2 font-xl font-semibold my-4 rounded-md',{
+                'bg-greed-500':success,
+                'bg-red-500':!success
+            }
+        ]}>{ok}</span>
+        <h2 class=" font-bold text-3xl text-white mt-5">{name}</h2>
+        <h2 class=" tex-2xl text-white/80">Flight:{flight_number}</h2>
+
+    </div>
+
+    <div class=" text-white text-2xl">
+      <p class="text-white text-lg pt-5"><span class="block text-xl">Details:</span> {details}</p>
+
+      <p class="">{ date_unix}</p>
+    </div>
+  </main>
+</LayoutLaunch>

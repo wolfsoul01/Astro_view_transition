@@ -1,8 +1,9 @@
 ---
+import type { GetStaticPaths } from "astro";
 import LaunchesCard from "./ui/LaunchesCard.astro";
-import {getLanchesApi} from './utils/spaceX.ts'
+import { getLanchesApi } from "./utils/spaceX.ts";
 
-const launches = await getLanchesApi()
+const launches = await getLanchesApi();
 ---
 
 <section class="mx-auto max-w-screen-lg">
