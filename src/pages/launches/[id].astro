@@ -17,35 +17,90 @@ export const getStaticPaths = (async () => {
 
 const { id } = Astro.params;
 
-const { name, flight_number, links, details,success ,date_unix} = await getLaunchId({ id });
-const ok = success?'Despego':'Exploto' 
-const data = new Date(date_unix)
-console.log(data);
+const {
+  name,
+  flight_number,
+  links,
+  details,
+  success,
+  date_unix,
+  failures,
+  crew,
+} = await getLaunchId({ id });
+const ok = success ? "Despego" : "Exploto";
 
+const date = new Date(date_unix * 1000);
+const [hours, min, day, month, year] = [
+  date.getHours(),
+  date.getMinutes(),
+  date.getDate(),
+  date.getMonth() + 1,
+  date.getFullYear(),
+];
 ---
 
 <LayoutLaunch title="Info-Launch">
-  <main class="grid grid-cols-2 gap-x-10 max-w-2xl mx-auto bg-slate-800 p-5 rounded-md">
+  <main
+    class="grid grid-cols-2 gap-x-6 max-w-3xl mx-auto bg-slate-800 p-5 rounded-md"
+  >
     <div class="">
       <picture class="pb-3 mb-4">
-        <img class="mb-5" src={links.patch.large} alt="" />
+        <img class="mb-5 " src={links.patch.small} alt="" />
       </picture>
 
-        <span class:list={[
-            'p-2 font-xl font-semibold my-4 rounded-md',{
-                'bg-greed-500':success,
-                'bg-red-500':!success
-            }
-        ]}>{ok}</span>
-        <h2 class=" font-bold text-3xl text-white mt-5">{name}</h2>
-        <h2 class=" tex-2xl text-white/80">Flight:{flight_number}</h2>
-
+      <span
+        class:list={[
+          "p-2 font-xl font-semibold mt-8 mb-8 rounded-md",
+          {
+            "bg-green-500": success,
+            "bg-red-500": !success,
+          },
+        ]}>{ok}</span
+      >
+      <section class="mt-8">
+        <h1 class="text-3xl font-bold text-white">
+          Misión <span class="text-amber-400">{name}</span>
+        </h1>
+        <p class="text-lg text-white/80">
+          Vuelo #{flight_number}
+        </p>
+      </section>
     </div>
 
-    <div class=" text-white text-2xl">
-      <p class="text-white text-lg pt-5"><span class="block text-xl">Details:</span> {details}</p>
+    <section class="text-white text-2xl mt-8 space-y-2">
+      <p>
+        <span class="text-amber-400 font-bold">Fecha:</span>
+        {day}/{month}/{year}
+      </p>
 
-      <p class="">{ date_unix}</p>
-    </div>
+      <p>
+        <span class="text-amber-400 font-bold">Hora de lanzamiento:</span>
+        {hours}:{min} UTC
+      </p>
+
+      <p class="text-lg">
+        <span class="text-amber-400 font-bold">Detalles:</span>
+        {details ?? "Sin información"}
+      </p>
+
+      {/* Sección de fallos */}
+      {
+        failures.length > 0 && (
+          <section class="border-t border-gray-600 pt-5">
+            <h2 class="text-2xl font-bold mb-3 text-red-500">Fallos</h2>
+
+            {failures.map((failure) => (
+              <p class="text-xl ">
+                Tiempo: {failure.time} segundos
+                <br />
+                {failure.reason}
+                <br />
+                Altitud: {failure.altitude?? 0} metros
+              </p>
+            ))}
+          </section>
+        )
+      }
+    </section>
   </main>
 </LayoutLaunch>
